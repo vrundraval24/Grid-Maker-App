@@ -7,9 +7,7 @@ import 'package:grid_maker/widgets/custom_black_button.dart';
 import 'package:grid_maker/widgets/custom_dialogue_box.dart';
 
 class AddGridPage extends StatelessWidget {
-  AddGridPage({super.key, required this.imagePath});
-
-  Color color = Colors.red;
+  const AddGridPage({super.key, required this.imagePath});
 
   final String imagePath;
 
@@ -27,6 +25,7 @@ class AddGridPage extends StatelessWidget {
         AddGridCubitDoneState.numberOfRows = 0;
         AddGridCubitDoneState.numberOfColumns = 0;
         AddGridCubitDoneState.numberOfBoth = 0;
+        AddGridCubitDoneState.gridColor = Colors.black;
         AddGridCubitDoneState.screenExited = true;
       },
       child: Scaffold(
@@ -65,7 +64,7 @@ class AddGridPage extends StatelessWidget {
                           numberOfColumns:
                               AddGridCubitDoneState.numberOfColumns,
                           numberOfBoth: AddGridCubitDoneState.numberOfBoth,
-                          strokeColor: color,
+                          strokeColor: AddGridCubitDoneState.gridColor,
                         ),
                       );
                     }
@@ -175,21 +174,12 @@ class AddGridPage extends StatelessWidget {
     );
   }
 
-  Widget buildColorPicker() {
-    return ColorPicker(
-      pickerColor: color,
-      onColorChanged: (value) {
-        color = value;
-      },
-
-      portraitOnly: true,
-      pickerAreaBorderRadius: BorderRadius.circular(10),
-      labelTypes: const [],
-      pickerAreaHeightPercent: 0.7,
-    );
-  }
-
   void pickColor(BuildContext context) {
+    final addGridCubit = BlocProvider.of<AddGridCubit>(context);
+    final mq = MediaQuery.of(context).size;
+
+    Color temp = AddGridCubitDoneState.gridColor;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -199,13 +189,40 @@ class AddGridPage extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            buildColorPicker(),
+            ColorPicker(
+              pickerColor: AddGridCubitDoneState.gridColor,
+              onColorChanged: (value) {
+                temp = value;
+              },
+              portraitOnly: true,
+              pickerAreaBorderRadius: BorderRadius.circular(10),
+              labelTypes: const [],
+              pickerAreaHeightPercent: 0.7,
+            )
           ],
         ),
         actions: [
+          OutlinedButton(
+            onPressed: () {
+              Navigator.pop(context);
+
+              },
+            style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                    side: const BorderSide(color: Colors.black))),
+            child: const Text('CANCEL'),
+          ),
           ElevatedButton(
             onPressed: () {
-
+              AddGridCubitDoneState.gridColor = temp;
+              addGridCubit.setImage(
+                imagePath,
+                mq,
+              );
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

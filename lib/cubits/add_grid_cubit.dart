@@ -23,6 +23,7 @@ class AddGridCubitDoneState extends AddGridCubitState {
   static int numberOfRows = 0;
   static int numberOfColumns = 0;
   static int numberOfBoth = 0;
+  static Color gridColor = Colors.black;
 
   static bool screenExited = false;
 
