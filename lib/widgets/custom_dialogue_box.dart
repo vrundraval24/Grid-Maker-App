@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:grid_maker/models/image_model.dart';
 
 import '../utils/validation_function.dart';
 
 class CustomDialogBox {
   final BuildContext context;
-  final String imagePath;
-  final Size mq;
+  // final String imagePath;
+  // final Size mq;
+  final ImageModel imageModel;
   final TextEditingController controller;
   final String dialogueBoxTitle;
   final String hintText;
@@ -14,8 +16,9 @@ class CustomDialogBox {
 
   CustomDialogBox({
     required this.context,
-    required this.imagePath,
-    required this.mq,
+    required this.imageModel,
+    // required this.imagePath,
+    // required this.mq,
     required this.controller,
     required this.dialogueBoxTitle,
     required this.hintText,
@@ -23,7 +26,7 @@ class CustomDialogBox {
     required this.action,
   });
 
-  customDialogFunction(){
+  customDialogFunction() {
     final formKey = GlobalKey<FormState>();
 
     showDialog(
@@ -33,7 +36,6 @@ class CustomDialogBox {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
-          
           title: Text(dialogueBoxTitle),
           content: Form(
             key: formKey,
@@ -46,7 +48,10 @@ class CustomDialogBox {
                 return null;
               },
               controller: controller,
-              decoration: InputDecoration(hintText: hintText),
+              cursorColor: Colors.black,
+              decoration: InputDecoration(
+                hintText: hintText,
+              ),
               autofocus: true,
               keyboardType: TextInputType.number,
             ),

@@ -8,55 +8,58 @@ abstract class AddGridCubitState {}
 
 class AddGridCubitInitialState extends AddGridCubitState {}
 
-class AddGridCubitDrawRowState extends AddGridCubitState {
-  final ImageModel imageModel;
+// class AddGridCubitUpdateState extends AddGridCubitState {
+//   final ImageModel imageModel;
+//
+//   static bool screenExited = false;
+//
+//   AddGridCubitUpdateState({
+//     required this.imageModel,
+//   });
+// }
 
-  static bool screenExited = false;
+// class AddGridCubitDoneState extends AddGridCubitState {
+//   // static int numberOfRows = 0;
+//   // static int numberOfColumns = 0;
+//   // static int numberOfBoth = 0;
+//   // static Color gridColor = Colors.black;
+//
+//   final ImageModel imageModel;
+//
+//   static bool screenExited = false;
+//
+//   AddGridCubitDoneState({
+//     required this.imageModel,
+//   });
+// }
 
-  AddGridCubitDrawRowState({
-    required this.imageModel,
-  });
-}
+// class AddRowsState extends AddGridCubitState {}
+//
+// class AddColumnsState extends AddGridCubitState {}
+//
+// class AddSquareGridState extends AddGridCubitState {}
+//
+// class ChangeGridColorState extends AddGridCubitState {}
 
-class AddGridCubitDoneState extends AddGridCubitState {
-  final ImageModel imageModel;
-  static int numberOfRows = 0;
-  static int numberOfColumns = 0;
-  static int numberOfBoth = 0;
-  static Color gridColor = Colors.black;
-
-  static bool screenExited = false;
-
-  AddGridCubitDoneState({
-    required this.imageModel,
-  });
-}
+// class RowState extends AddGridCubitState {}
 
 class AddGridCubit extends Cubit<AddGridCubitState> {
   AddGridCubit() : super(AddGridCubitInitialState());
 
-  void setImage(
-      String imgPath, Size size) async {
-    double w, h;
 
-    File image = File(imgPath);
-    ui.Image decodedImage = await decodeImageFromList(image.readAsBytesSync());
-
-    w = size.width * 0.8;
-    h = (w * decodedImage.height) / decodedImage.width;
-
-    if (h > size.height * 0.6) {
-      h = size.height * 0.6;
-      w = (h * decodedImage.width) / decodedImage.height;
-    }
-
-    emit(AddGridCubitDoneState(
-      imageModel: ImageModel(
-        width: w,
-        height: h,
-        uiImage: decodedImage,
-      ),
-    ));
+  void launchInitialState(){
+    emit(AddGridCubitInitialState());
   }
+
+  // void setImage(ImageModel imageModel) async {
+  //
+  //   print('done state is emitted...');
+  //   emit(
+  //     AddGridCubitDoneState(
+  //       imageModel: imageModel
+  //     ),
+  //   );
+  // }
+
 
 }

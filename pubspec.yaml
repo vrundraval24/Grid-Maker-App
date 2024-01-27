@@ -40,10 +40,24 @@ dependencies:
   image_cropper: ^5.0.1
   fluttertoast: ^8.2.4
   flutter_colorpicker: ^1.0.3
+  screenshot: ^2.1.0
+  image_gallery_saver: ^2.0.3
+  popover: ^0.2.9
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.9
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/app_logo_two.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -66,6 +80,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_maker/cubits/add_grid_cubit.dart';
 import 'package:grid_maker/cubits/gallery_cubit.dart';
+import 'package:grid_maker/cubits/save_image_cubit.dart';
 import 'package:grid_maker/pages/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(const MyApp());
 }
 
@@ -15,14 +23,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => GalleryCubit(),),
-        BlocProvider(create: (context) => AddGridCubit(),)
+        BlocProvider(
+          create: (context) => GalleryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AddGridCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SaveImageCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'Grid maker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.black,
+            primary: Colors.black,
+          ),
           useMaterial3: true,
         ),
         home: const HomePage(),
@@ -30,4 +48,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

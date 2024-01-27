@@ -8,6 +8,7 @@ class ImageGridPainter extends CustomPainter {
   final int numberOfRows;
   final int numberOfColumns;
   final int numberOfBoth;
+  final double strokeSize;
   final Color strokeColor;
 
   ImageGridPainter({
@@ -19,6 +20,7 @@ class ImageGridPainter extends CustomPainter {
     required this.img,
     required this.numberOfBoth,
     required this.strokeColor,
+    required this.strokeSize,
   });
 
   @override
@@ -37,12 +39,10 @@ class ImageGridPainter extends CustomPainter {
     // canvas.drawColor(Colors.red, BlendMode.src);
     canvas.drawImageRect(img, imageRect, canvasRect, paint);
 
-    paint.strokeWidth = 1;
+    paint.strokeWidth = strokeSize;
     paint.color = strokeColor;
-    // paint.color = Colors.black.withOpacity(1);
 
-
-    int num = numberOfRows + 1;
+    int num = numberOfRows;
     for (int i = 1; i < num; i++) {
       canvas.drawLine(
         Offset(0, (height / num) * i),
@@ -72,7 +72,7 @@ class ImageGridPainter extends CustomPainter {
     int num4 = numberOfBoth + 1;
     int x = 1;
     while (num4 > 1) {
-      if (((height / num4) * x) > width) {
+      if (((height / num4) * x) >= width) {
         break;
       }
       canvas.drawLine(

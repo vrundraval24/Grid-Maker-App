@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final galleryCubit = BlocProvider.of<GalleryCubit>(context);
+    Size mq = MediaQuery.of(context).size;
 
     return Scaffold(
         appBar: AppBar(
@@ -29,21 +30,34 @@ class HomePage extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(50),
-                child: Image.asset('assets/group.png'),
+                child: Image.asset('assets/grid_logo.png'),
               ),
               SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () async {
+
+                    // showPopover(
+                    //   context: context,
+                    //   bodyBuilder: (context) => listItems(),
+                    //   onPop: () => print('Popover was popped!'),
+                    //   direction: PopoverDirection.top,
+                    //   width: 200,
+                    //   height: 400,
+                    //   arrowHeight: 15,
+                    //   arrowWidth: 30,
+                    // );
+
                     try {
-                      await galleryCubit.openGallery().then((imagePath) {
-                        if (imagePath != '') {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddGridPage(imagePath: imagePath)));
-                        }
+                      await galleryCubit.openGallery(mq).then((imageModel) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddGridPage(
+                              image: imageModel,
+                            ),
+                          ),
+                        );
                       });
                     } catch (error) {
                       log("Error occurred while getting image from gallery: $error");
@@ -69,5 +83,19 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ));
+  }
+  Widget listItems(){
+    return Column(
+      children: [
+        Container(
+          height: 100,
+          color: Colors.red,
+        ),
+        Container(
+          height: 100,
+          color: Colors.blueGrey,
+        )
+      ],
+    );
   }
 }
