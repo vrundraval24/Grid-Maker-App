@@ -109,7 +109,6 @@ class BottomToolbar extends StatelessWidget {
                             value: GridModel.strokeSize,
                             onChanged: (value) {
                               setState(() {});
-                              print(value);
                               GridModel.strokeSize = value;
                               addGridCubit.launchInitialState();
                             },

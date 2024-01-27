@@ -61,6 +61,39 @@ class ImageGridPainter extends CustomPainter {
       );
     }
 
+    // Logic for Cross Line when Rows and Columns are separately given
+    List<List<Offset>> matrixOfPoints = [];
+
+    for (int i = 0; i <= numberOfRows; i++) {
+      List<Offset> tempList = [];
+
+      for (int j = 0; j <= numberOfColumns; j++) {
+        Offset point = Offset(j * gridWidth, i * gridHeight);
+
+        tempList.add(point);
+      }
+
+      matrixOfPoints.add(tempList);
+    }
+
+    for (int i = 0; i < numberOfRows; i++) {
+      for (int j = 0; j < numberOfColumns; j++) {
+        canvas.drawLine(
+          matrixOfPoints[i][j],
+          matrixOfPoints[i + 1][j + 1],
+          paint,
+        );
+
+        canvas.drawLine(
+          matrixOfPoints[i + 1][j],
+          matrixOfPoints[i][j + 1],
+          paint,
+        );
+      }
+    }
+
+    // --------------------------------------------------------------------------------------------
+
     gridHeight = height / numberOfBoth;
 
     for (int i = 1; i < numberOfBoth; i++) {
@@ -82,6 +115,53 @@ class ImageGridPainter extends CustomPainter {
         paint,
       );
       x++;
+    }
+
+    // ----------------------------------------------------------------------------
+
+    // Logic for Cross Line when Square Grid is given
+
+    List<List<Offset>> matrix = [];
+
+    for (int i = 0; i <= numberOfBoth; i++) {
+      List<Offset> tempList = [];
+
+      int m = 0;
+      while (numberOfBoth > 1) {
+        if ((gridHeight * (m - 1)) > width) {
+          break;
+        }
+
+        Offset point = Offset(m * gridHeight, i * gridHeight);
+
+        tempList.add(point);
+        m++;
+      }
+
+      matrix.add(tempList);
+    }
+
+    for (int i = 0; i < numberOfBoth; i++) {
+      int m = 0;
+      while (numberOfBoth > 1) {
+        if ((gridHeight * m) >= width) {
+          break;
+        }
+
+        canvas.drawLine(
+          matrix[i][m],
+          matrix[i + 1][m + 1],
+          paint,
+        );
+
+        canvas.drawLine(
+          matrix[i + 1][m],
+          matrix[i][m + 1],
+          paint,
+        );
+
+        m++;
+      }
     }
   }
 
