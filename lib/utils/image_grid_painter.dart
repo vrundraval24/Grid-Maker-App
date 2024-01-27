@@ -27,57 +27,58 @@ class ImageGridPainter extends CustomPainter {
   Future<void> paint(Canvas canvas, Size size) async {
     Paint paint = Paint();
 
-
     canvas.clipRect(Offset.zero & size);
 
     Size imageSize = Size(img.width.toDouble(), img.height.toDouble());
-    Size randSize = Size(width, height);
+    Size canvasSize = Size(width, height);
 
     Rect imageRect = Offset.zero & imageSize;
-    Rect canvasRect = Offset.zero & randSize;
+    Rect canvasRect = Offset.zero & canvasSize;
 
-    // canvas.drawColor(Colors.red, BlendMode.src);
     canvas.drawImageRect(img, imageRect, canvasRect, paint);
 
     paint.strokeWidth = strokeSize;
     paint.color = strokeColor;
 
-    int num = numberOfRows;
-    for (int i = 1; i < num; i++) {
+    double gridWidth;
+    double gridHeight;
+
+    gridHeight = height / numberOfRows;
+    for (int i = 1; i < numberOfRows; i++) {
       canvas.drawLine(
-        Offset(0, (height / num) * i),
-        Offset(size.width, (height / num) * i),
+        Offset(0, gridHeight * i),
+        Offset(size.width, gridHeight * i),
         paint,
       );
     }
 
-    int num2 = numberOfColumns + 1;
-    for (int i = 1; i < num2; i++) {
+    gridWidth = width / numberOfColumns;
+    for (int i = 1; i < numberOfColumns; i++) {
       canvas.drawLine(
-        Offset((width / num2) * i, 0),
-        Offset((width / num2) * i, size.height),
+        Offset(gridWidth * i, 0),
+        Offset(gridWidth * i, size.height),
         paint,
       );
     }
 
-    int num3 = numberOfBoth + 1;
-    for (int i = 1; i < num3; i++) {
+    gridHeight = height / numberOfBoth;
+
+    for (int i = 1; i < numberOfBoth; i++) {
       canvas.drawLine(
-        Offset(0, (height / num3) * i),
-        Offset(size.width, (height / num3) * i),
+        Offset(0, gridHeight * i),
+        Offset(size.width, gridHeight * i),
         paint,
       );
     }
 
-    int num4 = numberOfBoth + 1;
     int x = 1;
-    while (num4 > 1) {
-      if (((height / num4) * x) >= width) {
+    while (numberOfBoth > 1) {
+      if ((gridHeight * x) >= width) {
         break;
       }
       canvas.drawLine(
-        Offset((height / num4) * x, 0),
-        Offset((height / num4) * x, size.height),
+        Offset(gridHeight * x, 0),
+        Offset(gridHeight * x, size.height),
         paint,
       );
       x++;
