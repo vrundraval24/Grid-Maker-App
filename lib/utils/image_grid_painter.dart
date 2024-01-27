@@ -10,6 +10,7 @@ class ImageGridPainter extends CustomPainter {
   final int numberOfBoth;
   final double strokeSize;
   final Color strokeColor;
+  final bool crossLines;
 
   ImageGridPainter({
     super.repaint,
@@ -21,6 +22,7 @@ class ImageGridPainter extends CustomPainter {
     required this.numberOfBoth,
     required this.strokeColor,
     required this.strokeSize,
+    required this.crossLines,
   });
 
   @override
@@ -42,7 +44,9 @@ class ImageGridPainter extends CustomPainter {
 
     double gridWidth;
     double gridHeight;
+    double squareGridHeight;
 
+    // For adding Rows separately
     gridHeight = height / numberOfRows;
     for (int i = 1; i < numberOfRows; i++) {
       canvas.drawLine(
@@ -52,6 +56,7 @@ class ImageGridPainter extends CustomPainter {
       );
     }
 
+    // For adding Columns separately
     gridWidth = width / numberOfColumns;
     for (int i = 1; i < numberOfColumns; i++) {
       canvas.drawLine(
@@ -61,57 +66,62 @@ class ImageGridPainter extends CustomPainter {
       );
     }
 
+    // --------------------------------------------------------------------------------------------
     // Logic for Cross Line when Rows and Columns are separately given
-    List<List<Offset>> matrixOfPoints = [];
 
-    for (int i = 0; i <= numberOfRows; i++) {
-      List<Offset> tempList = [];
+    if (crossLines) {
+      List<List<Offset>> matrixOfPoints = [];
 
-      for (int j = 0; j <= numberOfColumns; j++) {
-        Offset point = Offset(j * gridWidth, i * gridHeight);
+      for (int i = 0; i <= numberOfRows; i++) {
+        List<Offset> tempList = [];
 
-        tempList.add(point);
+        for (int j = 0; j <= numberOfColumns; j++) {
+          Offset point = Offset(j * gridWidth, i * gridHeight);
+
+          tempList.add(point);
+        }
+
+        matrixOfPoints.add(tempList);
       }
 
-      matrixOfPoints.add(tempList);
-    }
+      for (int i = 0; i < numberOfRows; i++) {
+        for (int j = 0; j < numberOfColumns; j++) {
+          canvas.drawLine(
+            matrixOfPoints[i][j],
+            matrixOfPoints[i + 1][j + 1],
+            paint,
+          );
 
-    for (int i = 0; i < numberOfRows; i++) {
-      for (int j = 0; j < numberOfColumns; j++) {
-        canvas.drawLine(
-          matrixOfPoints[i][j],
-          matrixOfPoints[i + 1][j + 1],
-          paint,
-        );
-
-        canvas.drawLine(
-          matrixOfPoints[i + 1][j],
-          matrixOfPoints[i][j + 1],
-          paint,
-        );
+          canvas.drawLine(
+            matrixOfPoints[i + 1][j],
+            matrixOfPoints[i][j + 1],
+            paint,
+          );
+        }
       }
     }
 
     // --------------------------------------------------------------------------------------------
 
-    gridHeight = height / numberOfBoth;
-
+    // For adding Square Grid
+    squareGridHeight = height / numberOfBoth;
+    // Adding rows in square grid
     for (int i = 1; i < numberOfBoth; i++) {
       canvas.drawLine(
-        Offset(0, gridHeight * i),
-        Offset(size.width, gridHeight * i),
+        Offset(0, squareGridHeight * i),
+        Offset(size.width, squareGridHeight * i),
         paint,
       );
     }
-
+    // Adding columns in square grid
     int x = 1;
     while (numberOfBoth > 1) {
-      if ((gridHeight * x) >= width) {
+      if ((squareGridHeight * x) >= width) {
         break;
       }
       canvas.drawLine(
-        Offset(gridHeight * x, 0),
-        Offset(gridHeight * x, size.height),
+        Offset(squareGridHeight * x, 0),
+        Offset(squareGridHeight * x, size.height),
         paint,
       );
       x++;
@@ -121,46 +131,48 @@ class ImageGridPainter extends CustomPainter {
 
     // Logic for Cross Line when Square Grid is given
 
-    List<List<Offset>> matrix = [];
+    if (crossLines) {
+      List<List<Offset>> matrix = [];
 
-    for (int i = 0; i <= numberOfBoth; i++) {
-      List<Offset> tempList = [];
+      for (int i = 0; i <= numberOfBoth; i++) {
+        List<Offset> tempList = [];
 
-      int m = 0;
-      while (numberOfBoth > 1) {
-        if ((gridHeight * (m - 1)) > width) {
-          break;
+        int m = 0;
+        while (numberOfBoth > 1) {
+          if ((squareGridHeight * (m - 1)) > width) {
+            break;
+          }
+
+          Offset point = Offset(m * squareGridHeight, i * squareGridHeight);
+
+          tempList.add(point);
+          m++;
         }
 
-        Offset point = Offset(m * gridHeight, i * gridHeight);
-
-        tempList.add(point);
-        m++;
+        matrix.add(tempList);
       }
 
-      matrix.add(tempList);
-    }
+      for (int i = 0; i < numberOfBoth; i++) {
+        int m = 0;
+        while (numberOfBoth > 1) {
+          if ((squareGridHeight * m) >= width) {
+            break;
+          }
 
-    for (int i = 0; i < numberOfBoth; i++) {
-      int m = 0;
-      while (numberOfBoth > 1) {
-        if ((gridHeight * m) >= width) {
-          break;
+          canvas.drawLine(
+            matrix[i][m],
+            matrix[i + 1][m + 1],
+            paint,
+          );
+
+          canvas.drawLine(
+            matrix[i + 1][m],
+            matrix[i][m + 1],
+            paint,
+          );
+
+          m++;
         }
-
-        canvas.drawLine(
-          matrix[i][m],
-          matrix[i + 1][m + 1],
-          paint,
-        );
-
-        canvas.drawLine(
-          matrix[i + 1][m],
-          matrix[i][m + 1],
-          paint,
-        );
-
-        m++;
       }
     }
   }

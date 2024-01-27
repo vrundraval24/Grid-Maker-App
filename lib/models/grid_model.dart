@@ -6,4 +6,5 @@ class GridModel {
   static int rowsForSquareGrid = 0;
   static double strokeSize = 1;
   static Color gridColor = Colors.black;
+  static bool crossLines = false;
 }

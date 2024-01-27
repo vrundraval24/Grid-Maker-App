@@ -43,6 +43,20 @@ class TopToolbar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
+              if (GridModel.crossLines) {
+                GridModel.crossLines = false;
+              } else {
+                GridModel.crossLines = true;
+              }
+              addGridCubit.launchInitialState();
+            },
+            icon: Image.asset(
+              'assets/icons/cross_icon.png',
+              width: 24,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
               showDialog(
                 context: context,
                 builder: (context) {
@@ -53,7 +67,8 @@ class TopToolbar extends StatelessWidget {
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
                     title: Text('Clear Grid'),
-                    content: Text('Do you want to clear the grid?'),
+                    content: Text(
+                        'Do you want to clear the grid and reset changes?'),
                     actions: [
                       OutlinedButton(
                         onPressed: () {
@@ -74,6 +89,8 @@ class TopToolbar extends StatelessWidget {
                           GridModel.rowsForSquareGrid = 0;
                           GridModel.gridColor = Colors.black;
                           GridModel.strokeSize = 1;
+                          GridModel.crossLines = false;
+
                           addGridCubit.launchInitialState();
                           Navigator.pop(context);
                         },

@@ -22,6 +22,7 @@ class AddGridPage extends StatelessWidget {
         GridModel.rowsForSquareGrid = 0;
         GridModel.gridColor = Colors.black;
         GridModel.strokeSize = 1;
+        GridModel.crossLines = false;
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -53,6 +54,7 @@ class AddGridPage extends StatelessWidget {
                         numberOfBoth: GridModel.rowsForSquareGrid,
                         strokeColor: GridModel.gridColor,
                         strokeSize: GridModel.strokeSize,
+                        crossLines: GridModel.crossLines,
                       ),
                     );
                   }

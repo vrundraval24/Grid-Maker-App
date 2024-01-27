@@ -5,8 +5,6 @@ import '../utils/validation_function.dart';
 
 class CustomDialogBox {
   final BuildContext context;
-  // final String imagePath;
-  // final Size mq;
   final ImageModel imageModel;
   final TextEditingController controller;
   final String dialogueBoxTitle;
@@ -17,8 +15,6 @@ class CustomDialogBox {
   CustomDialogBox({
     required this.context,
     required this.imageModel,
-    // required this.imagePath,
-    // required this.mq,
     required this.controller,
     required this.dialogueBoxTitle,
     required this.hintText,
