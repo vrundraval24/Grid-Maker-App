@@ -5,6 +5,7 @@ import 'package:grid_maker/models/grid_model.dart';
 import 'package:grid_maker/models/image_model.dart';
 import 'package:grid_maker/utils/image_grid_painter.dart';
 import 'package:grid_maker/widgets/bottom_toolbar.dart';
+import 'package:grid_maker/widgets/custom_warning_dialog.dart';
 import 'package:grid_maker/widgets/top_toolbar.dart';
 
 class AddGridPage extends StatelessWidget {
@@ -15,14 +16,9 @@ class AddGridPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (_) {
-        // Reset GridModel properties
-        GridModel.rows = 0;
-        GridModel.columns = 0;
-        GridModel.rowsForSquareGrid = 0;
-        GridModel.gridColor = Colors.black;
-        GridModel.strokeSize = 1;
-        GridModel.crossLines = false;
+      canPop: false,
+      onPopInvoked: (_) async {
+        await leaveEditingPage(context);
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -73,4 +69,32 @@ class AddGridPage extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> leaveEditingPage(BuildContext context) async {
+  final warningDialogInstance = WarningDialog(
+    context: context,
+    dialogTitle: 'Discard Changes?',
+    dialogMessage:
+        "If you leave this page, you'll lose all of the edits you've made.",
+    okButtonName: 'DISCARD',
+    cancelButtonName: 'KEEP EDITING',
+    action: () {
+      // Reset GridModel properties
+      GridModel.rows = 0;
+      GridModel.columns = 0;
+      GridModel.rowsForSquareGrid = 0;
+      GridModel.gridColor = Colors.black;
+      GridModel.strokeSize = 1;
+      GridModel.crossLines = false;
+
+      // Pop the Dialog Box
+      Navigator.pop(context);
+
+      // Pop the Editing Page
+      Navigator.pop(context);
+    },
+  );
+
+  warningDialogInstance.warningDialogFunction();
 }

@@ -16,6 +16,7 @@ class MyColorPicker{
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         title: const Text('Pick Color'),
@@ -28,7 +29,7 @@ class MyColorPicker{
                 temp = value;
               },
               portraitOnly: true,
-              pickerAreaBorderRadius: BorderRadius.circular(10),
+              pickerAreaBorderRadius: BorderRadius.circular(7),
               labelTypes: const [],
               pickerAreaHeightPercent: 0.7,
             )

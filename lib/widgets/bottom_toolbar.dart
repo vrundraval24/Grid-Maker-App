@@ -6,7 +6,7 @@ import 'package:popover/popover.dart';
 
 import '../cubits/add_grid_cubit.dart';
 import '../models/grid_model.dart';
-import 'custom_dialogue_box.dart';
+import 'custom_dialog_box.dart';
 
 class BottomToolbar extends StatelessWidget {
   const BottomToolbar({super.key, required this.image});
