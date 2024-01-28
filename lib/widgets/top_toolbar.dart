@@ -36,37 +36,32 @@ class TopToolbar extends StatelessWidget {
               width: 24,
             ),
           ),
-          StatefulBuilder(
-            builder: (context, setState) {
-              return IconButton(
-                onPressed: () {
-                  if (GridModel.crossLines) {
-                    GridModel.crossLines = false;
-                  } else {
-                    GridModel.crossLines = true;
-                  }
-                  setState(() {});
-                  addGridCubit.launchInitialState();
-                },
-                icon: Image.asset(
-                  GridModel.crossLines
-                      ? 'assets/icons/cross_icon.png'
-                      : 'assets/icons/cross_icon_border.png',
-                  width: 24,
-                  color: Colors.black,
-                ),
-              );
+          IconButton(
+            onPressed: () {
+              if (GridModel.crossLines) {
+                GridModel.crossLines = false;
+              } else {
+                GridModel.crossLines = true;
+              }
+              addGridCubit.launchInitialState();
             },
+            icon: Image.asset(
+              GridModel.crossLines
+                  ? 'assets/icons/cross_icon.png'
+                  : 'assets/icons/cross_icon_border.png',
+              width: 24,
+              color: Colors.black,
+            ),
           ),
           IconButton(
             onPressed: () {
               final warningDialogInstance = WarningDialog(
                 context: context,
-                dialogTitle: 'Clear Grid',
+                dialogTitle: 'Clear Grid?',
                 dialogMessage:
                     'Do you want to clear the grid and reset changes?',
-                okButtonName: 'YES',
-                cancelButtonName: 'NO',
+                okButtonName: 'CLEAR',
+                cancelButtonName: 'CANCEL',
                 action: () {
                   GridModel.rows = 0;
                   GridModel.columns = 0;

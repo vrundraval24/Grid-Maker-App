@@ -29,14 +29,14 @@ class AddGridPage extends StatelessWidget {
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TopToolbar(image: image),
-              BlocBuilder<AddGridCubit, AddGridCubitState>(
-                builder: (context, state) {
-                  if (state is AddGridCubitInitialState) {
-                    return InteractiveViewer(
+          child: BlocBuilder<AddGridCubit, AddGridCubitState>(
+            builder: (context, state) {
+              if (state is AddGridCubitInitialState) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TopToolbar(image: image),
+                    InteractiveViewer(
                       maxScale: 100,
                       child: CustomPaint(
                         size: Size(
@@ -55,18 +55,18 @@ class AddGridPage extends StatelessWidget {
                           crossLines: GridModel.crossLines,
                         ),
                       ),
-                    );
-                  }
-
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
                     ),
-                  );
-                },
-              ),
-              BottomToolbar(image: image),
-            ],
+                    BottomToolbar(image: image),
+                  ],
+                );
+              }
+
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+              );
+            },
           ),
         ),
       ),
