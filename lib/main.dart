@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_maker/cubits/add_grid_cubit.dart';
 import 'package:grid_maker/cubits/gallery_cubit.dart';
 import 'package:grid_maker/cubits/save_image_cubit.dart';
-import 'package:grid_maker/pages/home_page.dart';
+import 'package:grid_maker/routes/app_route_config.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
           create: (context) => SaveImageCubit(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Grid maker',
+      child: MaterialApp.router(
+        title: 'Grid Maker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const HomePage(),
+        routerConfig: AppRouteConfig().goRouter,
       ),
     );
   }

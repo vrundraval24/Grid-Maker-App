@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grid_maker/cubits/gallery_cubit.dart';
-import 'package:grid_maker/pages/add_grid_page.dart';
+import 'package:grid_maker/routes/app_route_constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,16 +38,34 @@ class HomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
-                      await galleryCubit.openGallery(mq).then((imageModel) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddGridPage(
-                              image: imageModel,
-                            ),
-                          ),
-                        );
-                      });
+                      await galleryCubit.openGallery(mq).then(
+                        (imageModel) {
+                          // context.goNamed(
+                          //   AppRouteConstants.addGridPageRouteName,
+                          //   extra: imageModel,
+                          // );
+
+                          // context.pushNamed(
+                          //   AppRouteConstants.addGridPageRouteName,
+                          //   extra: imageModel,
+                          // );
+
+                          GoRouter.of(context).pushNamed(
+                            AppRouteConstants.addGridPageRouteName,
+                            extra: imageModel,
+                          );
+
+                          // SIMPLE WAY TO NAVIGATE
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => AddGridPage(
+                          //       image: imageModel,
+                          //     ),
+                          //   ),
+                          // );
+                        },
+                      );
                     } catch (error) {
                       log("Error occurred while getting image from gallery: $error");
                     }
