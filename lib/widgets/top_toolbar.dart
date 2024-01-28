@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_maker/models/image_model.dart';
 import 'package:grid_maker/utils/save_image.dart';
 import 'package:grid_maker/widgets/custom_warning_dialog.dart';
-import 'package:popover/popover.dart';
 
 import '../cubits/add_grid_cubit.dart';
 import '../models/grid_model.dart';
-import 'custom_dialog_box.dart';
 
 class TopToolbar extends StatelessWidget {
   const TopToolbar({super.key, required this.image});
@@ -16,11 +14,7 @@ class TopToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addNumberOfRowsController = TextEditingController();
-    final addNumberOfColumnsController = TextEditingController();
     final addGridCubit = BlocProvider.of<AddGridCubit>(context);
-
-    Size mq = MediaQuery.of(context).size;
 
     return Container(
       margin: const EdgeInsets.only(top: 10),
@@ -55,7 +49,9 @@ class TopToolbar extends StatelessWidget {
                   addGridCubit.launchInitialState();
                 },
                 icon: Image.asset(
-                  GridModel.crossLines ? 'assets/icons/cross_icon.png' : 'assets/icons/cross_icon_border.png',
+                  GridModel.crossLines
+                      ? 'assets/icons/cross_icon.png'
+                      : 'assets/icons/cross_icon_border.png',
                   width: 24,
                   color: Colors.black,
                 ),

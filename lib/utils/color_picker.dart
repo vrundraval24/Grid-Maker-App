@@ -5,11 +5,9 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../cubits/add_grid_cubit.dart';
 import '../models/grid_model.dart';
 
-class MyColorPicker{
-
+class MyColorPicker {
   static void pickColor(BuildContext context) {
     final addGridCubit = BlocProvider.of<AddGridCubit>(context);
-    // final mq = MediaQuery.of(context).size;
 
     Color temp = GridModel.gridColor;
 

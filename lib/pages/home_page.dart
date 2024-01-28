@@ -36,18 +36,6 @@ class HomePage extends StatelessWidget {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () async {
-
-                    // showPopover(
-                    //   context: context,
-                    //   bodyBuilder: (context) => listItems(),
-                    //   onPop: () => print('Popover was popped!'),
-                    //   direction: PopoverDirection.top,
-                    //   width: 200,
-                    //   height: 400,
-                    //   arrowHeight: 15,
-                    //   arrowWidth: 30,
-                    // );
-
                     try {
                       await galleryCubit.openGallery(mq).then((imageModel) {
                         Navigator.push(
@@ -84,7 +72,8 @@ class HomePage extends StatelessWidget {
           ),
         ));
   }
-  Widget listItems(){
+
+  Widget listItems() {
     return Column(
       children: [
         Container(

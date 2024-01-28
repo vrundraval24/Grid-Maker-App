@@ -23,22 +23,12 @@ class GalleryCubit extends Cubit<GalleryState> {
     final ImageModel imageModel;
 
     if (tempImage != null) {
-      // CROP AND EDIT IMAGE BEFORE ADDING GRID
-      // CroppedFile? croppedImage = await ImageCropper().cropImage(sourcePath: image.path,uiSettings: [
-      //   AndroidUiSettings(
-      //     statusBarColor: Colors.white,
-      //     activeControlsWidgetColor: Colors.redAccent,
-      //   )
-      // ]);
-      // if(croppedImage != null){
-      //   return croppedImage.path;
-      // }
-
       double w, h;
       String imgPath = tempImage.path;
 
       File image = File(imgPath);
-      ui.Image decodedImage = await decodeImageFromList(image.readAsBytesSync());
+      ui.Image decodedImage =
+          await decodeImageFromList(image.readAsBytesSync());
 
       w = size.width * 0.9;
       h = (w * decodedImage.height) / decodedImage.width;
@@ -49,7 +39,6 @@ class GalleryCubit extends Cubit<GalleryState> {
       }
 
       imageModel = ImageModel(width: w, height: h, uiImage: decodedImage);
-
 
       return imageModel;
     } else {

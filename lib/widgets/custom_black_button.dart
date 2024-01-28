@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-Widget customBlackButton(String buttonName, Function action){
+Widget customBlackButton(String buttonName, Function action) {
   return SizedBox(
     width: double.maxFinite,
     child: ElevatedButton(
       onPressed: () {
-
         action();
-
       },
       style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
