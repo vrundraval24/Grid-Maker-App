@@ -42,19 +42,25 @@ class TopToolbar extends StatelessWidget {
               width: 24,
             ),
           ),
-          IconButton(
-            onPressed: () {
-              if (GridModel.crossLines) {
-                GridModel.crossLines = false;
-              } else {
-                GridModel.crossLines = true;
-              }
-              addGridCubit.launchInitialState();
+          StatefulBuilder(
+            builder: (context, setState) {
+              return IconButton(
+                onPressed: () {
+                  if (GridModel.crossLines) {
+                    GridModel.crossLines = false;
+                  } else {
+                    GridModel.crossLines = true;
+                  }
+                  setState(() {});
+                  addGridCubit.launchInitialState();
+                },
+                icon: Image.asset(
+                  GridModel.crossLines ? 'assets/icons/cross_icon.png' : 'assets/icons/cross_icon_border.png',
+                  width: 24,
+                  color: Colors.black,
+                ),
+              );
             },
-            icon: Image.asset(
-              'assets/icons/cross_icon.png',
-              width: 24,
-            ),
           ),
           IconButton(
             onPressed: () {
@@ -79,7 +85,6 @@ class TopToolbar extends StatelessWidget {
               );
 
               warningDialogInstance.warningDialogFunction();
-
             },
             icon: Image.asset(
               'assets/icons/trash.png',

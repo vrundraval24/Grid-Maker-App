@@ -36,21 +36,24 @@ class AddGridPage extends StatelessWidget {
               BlocBuilder<AddGridCubit, AddGridCubitState>(
                 builder: (context, state) {
                   if (state is AddGridCubitInitialState) {
-                    return CustomPaint(
-                      size: Size(
-                        image.width,
-                        image.height,
-                      ),
-                      painter: ImageGridPainter(
-                        img: image.uiImage,
-                        width: image.width,
-                        height: image.height,
-                        numberOfRows: GridModel.rows,
-                        numberOfColumns: GridModel.columns,
-                        numberOfBoth: GridModel.rowsForSquareGrid,
-                        strokeColor: GridModel.gridColor,
-                        strokeSize: GridModel.strokeSize,
-                        crossLines: GridModel.crossLines,
+                    return InteractiveViewer(
+                      maxScale: 100,
+                      child: CustomPaint(
+                        size: Size(
+                          image.width,
+                          image.height,
+                        ),
+                        painter: ImageGridPainter(
+                          img: image.uiImage,
+                          width: image.width,
+                          height: image.height,
+                          numberOfRows: GridModel.rows,
+                          numberOfColumns: GridModel.columns,
+                          numberOfBoth: GridModel.rowsForSquareGrid,
+                          strokeColor: GridModel.gridColor,
+                          strokeSize: GridModel.strokeSize,
+                          crossLines: GridModel.crossLines,
+                        ),
                       ),
                     );
                   }
