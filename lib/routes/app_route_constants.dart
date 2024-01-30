@@ -1,4 +1,4 @@
 class AppRouteConstants {
-  static String homePageRouteName = 'home';
+  static String homePageRouteName = 'homePage';
   static String addGridPageRouteName = 'addGridPage';
 }

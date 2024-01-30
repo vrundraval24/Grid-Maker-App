@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_maker/models/image_model.dart';
 import 'package:image_picker/image_picker.dart';
 
+// States
 abstract class GalleryState {}
 
 class InitialGalleryState extends GalleryState {}
 
 class OpenGalleryState extends GalleryState {}
 
+// Cubit
 class GalleryCubit extends Cubit<GalleryState> {
   GalleryCubit() : super(InitialGalleryState());
 

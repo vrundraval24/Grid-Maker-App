@@ -73,16 +73,3 @@ class CustomDialogBox {
     );
   }
 }
-
-// customDialogueBox(
-//   BuildContext context,
-//   String imagePath,
-//   Size mq,
-//   TextEditingController controller,
-//   String dialogueBoxTitle,
-//   String hintText,
-//   String dialogButtonName,
-//   Function action,
-// ) {
-//
-// }

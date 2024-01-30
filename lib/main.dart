@@ -9,9 +9,11 @@ import 'package:grid_maker/routes/app_route_config.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+    ],
+  );
 
   runApp(const MyApp());
 }
