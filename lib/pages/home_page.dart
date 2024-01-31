@@ -22,16 +22,21 @@ class HomePage extends StatelessWidget {
               letterSpacing: 7,
               color: Colors.black,
               fontSize: 20,
-              fontWeight: FontWeight.w500),
+              fontWeight: FontWeight.w500,
+          ),
         ),
         body: Container(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: const EdgeInsets.all(50),
-                child: Image.asset('assets/grid_logo.png'),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
+                  child: Image.asset('assets/grid_logo.png'),
+                ),
               ),
               SizedBox(
                 width: double.maxFinite,
@@ -86,24 +91,12 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ));
-  }
-
-  Widget listItems() {
-    return Column(
-      children: [
-        Container(
-          height: 100,
-          color: Colors.red,
-        ),
-        Container(
-          height: 100,
-          color: Colors.blueGrey,
-        )
-      ],
-    );
   }
 }
