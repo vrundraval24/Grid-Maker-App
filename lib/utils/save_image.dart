@@ -40,7 +40,7 @@ class SaveImage {
         ),
       ),
     );
-
+    
     final result = await ImageGallerySaver.saveImage(ss);
 
     if (result['isSuccess']) {

@@ -1,4 +1,4 @@
-package com.example.grid_maker
+package vrund.raval.grid_maker
 
 import io.flutter.embedding.android.FlutterActivity
 
