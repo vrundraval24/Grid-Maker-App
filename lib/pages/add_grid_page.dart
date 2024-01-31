@@ -36,23 +36,28 @@ class AddGridPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TopToolbar(image: image),
-                    InteractiveViewer(
-                      maxScale: 100,
-                      child: CustomPaint(
-                        size: Size(
-                          image.width,
-                          image.height,
-                        ),
-                        painter: ImageGridPainter(
-                          img: image.uiImage,
-                          width: image.width,
-                          height: image.height,
-                          numberOfRows: GridModel.rows,
-                          numberOfColumns: GridModel.columns,
-                          numberOfBoth: GridModel.rowsForSquareGrid,
-                          strokeColor: GridModel.gridColor,
-                          strokeSize: GridModel.strokeSize,
-                          crossLines: GridModel.crossLines,
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: InteractiveViewer(
+                          maxScale: 100,
+                          child: CustomPaint(
+                            size: Size(
+                              image.width,
+                              image.height,
+                            ),
+                            painter: ImageGridPainter(
+                              img: image.uiImage,
+                              width: image.width,
+                              height: image.height,
+                              numberOfRows: GridModel.rows,
+                              numberOfColumns: GridModel.columns,
+                              numberOfBoth: GridModel.rowsForSquareGrid,
+                              strokeColor: GridModel.gridColor,
+                              strokeSize: GridModel.strokeSize,
+                              crossLines: GridModel.crossLines,
+                            ),
+                          ),
                         ),
                       ),
                     ),
