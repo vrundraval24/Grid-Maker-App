@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -19,31 +20,37 @@ class GalleryCubit extends Cubit<GalleryState> {
 
   Future<ImageModel> openGallery(Size size) async {
     ImagePicker imagePicker = ImagePicker();
-
-    XFile? tempImage = await imagePicker.pickImage(source: ImageSource.gallery);
-
     final ImageModel imageModel;
 
-    if (tempImage != null) {
-      double w, h;
-      String imgPath = tempImage.path;
+    try {
+      XFile? tempImage =
+          await imagePicker.pickImage(source: ImageSource.gallery);
 
-      File image = File(imgPath);
-      ui.Image decodedImage =
-          await decodeImageFromList(image.readAsBytesSync());
+      if (tempImage != null) {
+        double w, h;
+        String imgPath = tempImage.path;
 
-      w = size.width * 0.9;
-      h = (w * decodedImage.height) / decodedImage.width;
+        File image = File(imgPath);
+        ui.Image decodedImage =
+            await decodeImageFromList(image.readAsBytesSync());
 
-      if (h > size.height * 0.7) {
-        h = size.height * 0.7;
-        w = (h * decodedImage.width) / decodedImage.height;
+        w = size.width * 0.9;
+        h = (w * decodedImage.height) / decodedImage.width;
+
+        if (h > size.height * 0.7) {
+          h = size.height * 0.7;
+          w = (h * decodedImage.width) / decodedImage.height;
+        }
+
+        imageModel = ImageModel(width: w, height: h, uiImage: decodedImage);
+
+        return imageModel;
+      } else {
+        throw Future.error('Something went wrong.');
       }
+    } catch (e) {
+      log(e.toString());
 
-      imageModel = ImageModel(width: w, height: h, uiImage: decodedImage);
-
-      return imageModel;
-    } else {
       throw Future.error('Something went wrong.');
     }
   }

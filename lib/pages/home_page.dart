@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grid_maker/cubits/gallery_cubit.dart';
 import 'package:grid_maker/routes/app_route_constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -75,6 +76,8 @@ class HomePage extends StatelessWidget {
                       },
                     );
                   } catch (error) {
+                    Fluttertoast.showToast(msg: error.toString());
+
                     log("Error occurred while getting image from gallery: $error");
                   }
                 },

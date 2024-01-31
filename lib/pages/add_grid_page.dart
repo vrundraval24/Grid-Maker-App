@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_maker/cubits/add_grid_cubit.dart';
@@ -18,7 +20,11 @@ class AddGridPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (_) async {
-        await LeaveEditingPageHandler.leaveEditingPage(context);
+        try {
+          await LeaveEditingPageHandler.leaveEditingPage(context);
+        } catch (e) {
+          log(e.toString());
+        }
       },
       child: Scaffold(
         backgroundColor: Colors.white,
