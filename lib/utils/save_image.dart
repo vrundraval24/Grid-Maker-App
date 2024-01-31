@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grid_maker/models/image_model.dart';
@@ -21,32 +23,37 @@ class SaveImage {
     saveImageCubit.saveImageLoading();
     saveDialog(context);
 
-    final ss = await screenshotController.captureFromWidget(
-      CustomPaint(
-        size: Size(
-          image.width,
-          image.height,
+    try {
+      final ss = await screenshotController.captureFromWidget(
+        CustomPaint(
+          size: Size(
+            image.width,
+            image.height,
+          ),
+          painter: ImageGridPainter(
+            img: image.uiImage,
+            width: image.width,
+            height: image.height,
+            numberOfRows: GridModel.rows,
+            numberOfColumns: GridModel.columns,
+            numberOfBoth: GridModel.rowsForSquareGrid,
+            strokeColor: GridModel.gridColor,
+            strokeSize: GridModel.strokeSize,
+            crossLines: GridModel.crossLines,
+          ),
         ),
-        painter: ImageGridPainter(
-          img: image.uiImage,
-          width: image.width,
-          height: image.height,
-          numberOfRows: GridModel.rows,
-          numberOfColumns: GridModel.columns,
-          numberOfBoth: GridModel.rowsForSquareGrid,
-          strokeColor: GridModel.gridColor,
-          strokeSize: GridModel.strokeSize,
-          crossLines: GridModel.crossLines,
-        ),
-      ),
-    );
-    
-    final result = await ImageGallerySaver.saveImage(ss);
+      );
 
-    if (result['isSuccess']) {
-      saveImageCubit.saveImageSuccess();
-    } else {
+      final result = await ImageGallerySaver.saveImage(ss);
+
+      if (result['isSuccess']) {
+        saveImageCubit.saveImageSuccess();
+      } else {
+        saveImageCubit.saveImageFailed();
+      }
+    } catch (e) {
       saveImageCubit.saveImageFailed();
+      log(e.toString());
     }
   }
 }

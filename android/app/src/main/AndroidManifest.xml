@@ -2,6 +2,7 @@
     <application
         android:label="Grid Maker"
         android:name="${applicationName}"
+        android:resizeableActivity="false"
         android:icon="@mipmap/ic_launcher">
         <!-- for image cropper -->
         <activity
