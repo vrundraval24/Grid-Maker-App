@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
                       },
                     );
                   } catch (error) {
-                    Fluttertoast.showToast(msg: error.toString());
+                    Fluttertoast.showToast(msg: "Couldn't get image from gallery");
 
                     log("Error occurred while getting image from gallery: $error");
                   }
