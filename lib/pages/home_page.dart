@@ -88,7 +88,9 @@ class HomePage extends StatelessWidget {
                         vertical: 10, horizontal: 10),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7),
-                        side: const BorderSide(color: Colors.black))),
+                        side: const BorderSide(color: Colors.black),
+                    ),
+                ),
                 child: const Text(
                   'GALLERY',
                   style: TextStyle(
